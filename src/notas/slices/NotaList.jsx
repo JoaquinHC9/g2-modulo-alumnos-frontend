@@ -23,7 +23,7 @@ const NotasList = ({ arbolNotas, cursoId }) => {
             return (
                 <React.Fragment key={nota.componentenotaid}>
                     <TableRow className={isParent ? 'hover-parent' : 'hover-child'}>
-                        <TableCell style={{ paddingLeft: `${nivel * 10}px`, display: 'flex', alignItems: 'center' }}>
+                        <TableCell style={{ paddingLeft: `${nivel * 10}px`,height:'50px',display: 'flex', alignItems: 'center' }}>
                             {isParent && (
                                 <IconButton onClick={() => handleToggleExpand(nota.componentenotaid)}>
                                     {isExpanded ? <ExpandLess /> : <ExpandMore />}

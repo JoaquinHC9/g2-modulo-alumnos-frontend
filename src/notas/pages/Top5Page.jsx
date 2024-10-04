@@ -43,7 +43,7 @@ const Top5Page = () => {
     <Container maxWidth="sm" className="container">
       <Paper elevation={3} style={{ padding: '20px', backgroundColor: '#eff1f6', borderRadius: '8px' }}>
         <Typography variant="h4" align="center" gutterBottom style={{ color: '#0d0f16' }}>
-          Top 5 Alumnos
+          Top 5 Alumnos 
         </Typography>
         <Table>
           <TableHead>
