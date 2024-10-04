@@ -1,7 +1,7 @@
 //arbolnotas.jsx
 class ArbolNotas {
   constructor() {
-    this.nodos = {}; // Diccionario que almacenará todas las notas (id => Nota)
+    this.nodos = {}; // Diccionario que almacenara todas las notas (id => Nota)
     this.raices = []; // Notas que no tienen padre (padreId == null)
   }
 

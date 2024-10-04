@@ -4,11 +4,10 @@ import { AuthRoutes } from '../../seguridad/routes/AuthRoutes';
 import { CursosRoutes } from '../../cursos/routes/CursosRoutes';
 import { CheckingAuth } from '../../seguridad/components';
 import { useCheckAuth } from '../../seguridad/hooks';
-import { Notas } from '../../notas/pages/Notas.jsx';
 import Sidebar from '../../general/components/Sidebar.jsx';
 import { useState } from 'react';
-import Top5Page from '../../notas/pages/Top5Page.jsx'
-
+import { NotasRoutes } from '../../notas/routes/NotasRoutes.jsx'; 
+import {AlumnosRoutes} from '../../alumnos/routes/AlumnosRoutes.jsx'
 export const AppRouter = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
@@ -32,8 +31,8 @@ export const AppRouter = () => {
           <Route path="/auth/*" element={<AuthRoutes />} />
         )}
         <Route path="/*" element={<Navigate to="/auth/login" />} />
-        <Route path="/notas" element={<Notas />} />
-        <Route path="/top5/:cursoId/:componenteId" element={<Top5Page/>} />
+        <Route path="/notas/*" element={<NotasRoutes />} />
+        <Route path="/alumnos/*" element={<AlumnosRoutes />} />
       </Routes>
     </>
   );
