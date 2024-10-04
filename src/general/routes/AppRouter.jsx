@@ -7,6 +7,7 @@ import { useCheckAuth } from '../../seguridad/hooks';
 import { Notas } from '../../notas/pages/Notas.jsx';
 import Sidebar from '../../general/components/Sidebar.jsx';
 import { useState } from 'react';
+import Top5Page from '../../notas/pages/Top5Page.jsx'
 
 export const AppRouter = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -32,6 +33,7 @@ export const AppRouter = () => {
         )}
         <Route path="/*" element={<Navigate to="/auth/login" />} />
         <Route path="/notas" element={<Notas />} />
+        <Route path="/top5/:cursoId/:componenteId" element={<Top5Page/>} />
       </Routes>
     </>
   );

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Collapse, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Collapse, IconButton, Button } from '@mui/material';
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
+import { Link } from 'react-router-dom'; // Importar el componente Link para navegación
 import '../styles/NotaList.css';
 
-const NotasList = ({ arbolNotas }) => {
+const NotasList = ({ arbolNotas, cursoId }) => {
     const [expandedNodes, setExpandedNodes] = useState({}); // Estado para controlar qué nodos están expandidos
-
+    
     // Función para manejar la expansión/contracción de nodos
     const handleToggleExpand = (notaId) => {
         setExpandedNodes(prevState => ({
@@ -17,8 +18,8 @@ const NotasList = ({ arbolNotas }) => {
     // Función recursiva para renderizar cada nodo (nota) y sus hijos
     const renderNotas = (notas, nivel = 0) => {
         return notas.map(nota => {
-            const isExpanded = expandedNodes[nota.componentenotaid] || false; // Chequear si este nodo está expandido
-            const isParent = nota.children.length > 0; // Verificar si es padre
+            const isExpanded = expandedNodes[nota.componentenotaid] || false;
+            const isParent = nota.children.length > 0;
             return (
                 <React.Fragment key={nota.componentenotaid}>
                     <TableRow className={isParent ? 'hover-parent' : 'hover-child'}>
@@ -34,10 +35,16 @@ const NotasList = ({ arbolNotas }) => {
                             {nota.nota !== null ? nota.nota : <span style={{ color: '#d9534f' }}>Sin calificación</span>}
                         </TableCell>
                         <TableCell>{nota.calculado ? 'Sí' : 'No'}</TableCell>
+                        
+                        <TableCell>
+                            <Link to={`/top5/${cursoId}/${nota.componentenotaid}`}>
+                                <Button variant="contained" color="primary">Ver Top 5</Button>
+                            </Link>
+                        </TableCell>
                     </TableRow>
                     {isParent && (
                         <TableRow>
-                            <TableCell colSpan={3} style={{ paddingLeft: `0px`, paddingTop: 0, paddingBottom: 0 }}>
+                            <TableCell colSpan={4} style={{ paddingLeft: `0px`, paddingTop: 0, paddingBottom: 0 }}>
                                 <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                                     <Table>
                                         <TableBody>
@@ -63,9 +70,10 @@ const NotasList = ({ arbolNotas }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell  >Nombre Componente</TableCell>
+                                <TableCell>Nombre Componente</TableCell>
                                 <TableCell>Nota</TableCell>
                                 <TableCell>Calculado</TableCell>
+                                <TableCell>Acción</TableCell> {/* Nueva columna para el botón */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
