@@ -18,12 +18,12 @@ const NotasList = ({ arbolNotas }) => {
     const renderNotas = (notas, nivel = 0) => {
         return notas.map(nota => {
             const isExpanded = expandedNodes[nota.componentenotaid] || false; // Chequear si este nodo está expandido
-
+            const isParent = nota.children.length > 0; // Verificar si es padre
             return (
                 <React.Fragment key={nota.componentenotaid}>
-                    <TableRow>
-                        <TableCell style={{ paddingLeft: `${nivel * 20}px`, display: 'flex', alignItems: 'center' }}>
-                            {nota.children.length > 0 && (
+                    <TableRow className={isParent ? 'hover-parent' : 'hover-child'}>
+                        <TableCell style={{ paddingLeft: `${nivel * 10}px`, display: 'flex', alignItems: 'center' }}>
+                            {isParent && (
                                 <IconButton onClick={() => handleToggleExpand(nota.componentenotaid)}>
                                     {isExpanded ? <ExpandLess /> : <ExpandMore />}
                                 </IconButton>
@@ -35,9 +35,9 @@ const NotasList = ({ arbolNotas }) => {
                         </TableCell>
                         <TableCell>{nota.calculado ? 'Sí' : 'No'}</TableCell>
                     </TableRow>
-                    {nota.children.length > 0 && (
+                    {isParent && (
                         <TableRow>
-                            <TableCell colSpan={3} style={{ paddingLeft: `${(nivel + 1) * 20}px`, paddingTop: 0, paddingBottom: 0 }}>
+                            <TableCell colSpan={3} style={{ paddingLeft: `0px`, paddingTop: 0, paddingBottom: 0 }}>
                                 <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                                     <Table>
                                         <TableBody>
@@ -56,14 +56,14 @@ const NotasList = ({ arbolNotas }) => {
     return (
         <div className="notas-container">
             {arbolNotas.raices.map(notaRaiz => (
-                <TableContainer component={Paper} key={notaRaiz.componentenotaid}  style={{width: '1200px' }}className="notas-table" >
+                <TableContainer component={Paper} key={notaRaiz.componentenotaid} style={{ width: '1200px'}} className="notas-table">
                     <Typography variant="h6" style={{ padding: '16px', backgroundColor: '#f5f5f5' }}>
                         {notaRaiz.padreId === null ? 'Promedio Final' : `Notas para Padre ID: ${notaRaiz.padreId}`}
                     </Typography>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Nombre Componente</TableCell>
+                                <TableCell  >Nombre Componente</TableCell>
                                 <TableCell>Nota</TableCell>
                                 <TableCell>Calculado</TableCell>
                             </TableRow>

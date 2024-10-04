@@ -28,15 +28,30 @@
 
 .notas-container {
   display: flex;
-  flex-direction: column; /* Alinear tablas en columna */
-  gap: 20px; 
+  flex-direction: column;
+  align-items: center; /* Alinear el contenido horizontalmente en el centro */
+  gap: 20px;
   margin: 20px 0;
+  max-width: 1000px;
+
 }
 
 .notas-table {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border-collapse: collapse; /* Eliminar espacio entre celdas */
+}
+
+.notas-table td, .notas-table th {
+  padding: 0; /* Eliminar el relleno */
+  margin: 0;  /* Asegurarte de que no haya márgenes */
+  text-align: center; /* O text-align: left; según tus preferencias */
+  vertical-align: middle; /* Alinear verticalmente el contenido */
+  border: 1px solid #dddddd; /* Agregar un borde para mejorar la visualización */
+  width: 550px; /* Ancho fijo para las celdas */
+  max-width: 700px;
+  overflow: hidden; /* Ocultar el desbordamiento */
+  white-space: nowrap; /* Evitar saltos de línea */
+  text-overflow: ellipsis; /* Mostrar puntos suspensivos para texto largo */
 }
 
 .notas-table thead {
@@ -44,14 +59,19 @@
   color: white;
 }
 
-.notas-table tbody tr:hover {
+.notas-table tbody tr.hover-parent:hover {
+  background-color: #d4a8a0; 
+  color: white;
+}
+
+/* Estilo de hover para filas hijas */
+.notas-table tbody tr.hover-child:hover {
   background-color: #d4a8a0;
   color: white;
 }
 
-.notas-table td, .notas-table th {
-  padding: 12px;
-  text-align: left;
+.notas-table tbody tr {
+  transition: background-color 0.3s ease; 
 }
 
 .notas-table td {
