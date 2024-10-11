@@ -5,11 +5,11 @@ import '../styles/Inscribir.css'; // Reutilizar el CSS existente
 
 export const InscribirAlumno = () => {
   const [alumnoId, setAlumnoId] = useState(''); // Almacena el ID del alumno
-  const [cursoId, setCursoId] = useState('');   // Almacena el ID del curso
+  const [cursoCodigo, setCursoCodigo] = useState(''); // Almacena el código del curso
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-
+  
   const inscribirAlumnoEnCurso = async () => {
     setLoading(true);
     setError(null);
@@ -17,15 +17,25 @@ export const InscribirAlumno = () => {
 
     const requestBody = {
       alumnoid: alumnoId,
-      cursoid: cursoId
+      codigo: cursoCodigo
     };
 
     try {
       // Realizar la petición POST a la API de inscripción
-      const response = await axios.post('http://localhost:8080/api-alucur/v1/inscribir', requestBody);
-      setSuccessMessage('Alumno inscrito exitosamente en el curso' + response.data.message);
+      const response = await axios.post('http://localhost:8080/api-alucur/v1/inscripcion', requestBody);
+
+      // Revisar el código de estado para determinar si fue exitoso o si hay un error
+      if (response.status === 201) {
+        setSuccessMessage('Alumno inscrito exitosamente en el curso.');
+      }
     } catch (err) {
-      setError('Hubo un error al inscribir al alumno. Intenta nuevamente.');
+      // Mostrar el mensaje de error personalizado desde la respuesta de la API
+      if (err.response && err.response.data) {
+        setError(err.response.data); // Aquí capturas el mensaje de error devuelto por la API
+  
+      } else {
+        setError('Error desconocido. Por favor, verifica los datos e intenta de nuevo.');
+      }
     } finally {
       setLoading(false);
     }
@@ -46,9 +56,9 @@ export const InscribirAlumno = () => {
 
         <TextField
           variant="outlined"
-          label="Curso ID"
-          value={cursoId}
-          onChange={(e) => setCursoId(e.target.value)}
+          label="Código del Curso" // Cambiado a código del curso
+          value={cursoCodigo}
+          onChange={(e) => setCursoCodigo(e.target.value)}
           style={{ marginBottom: '20px', width: '100%' }}
         />
 

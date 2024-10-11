@@ -37,7 +37,7 @@ const NotasList = ({ arbolNotas, cursoId }) => {
                         <TableCell>{nota.calculado ? 'Sí' : 'No'}</TableCell>
                         
                         <TableCell>
-                            <Link to={`/top5/${cursoId}/${nota.componentenotaid}`}>
+                            <Link to={`/notas/top5/${cursoId}/${nota.componentenotaid}`}>
                                 <Button variant="contained" color="primary">Ver Top 5</Button>
                             </Link>
                         </TableCell>
@@ -73,7 +73,7 @@ const NotasList = ({ arbolNotas, cursoId }) => {
                                 <TableCell>Nombre Componente</TableCell>
                                 <TableCell>Nota</TableCell>
                                 <TableCell>Calculado</TableCell>
-                                <TableCell>Acción</TableCell> {/* Nueva columna para el botón */}
+                                <TableCell>Acción</TableCell> 
                             </TableRow>
                         </TableHead>
                         <TableBody>
